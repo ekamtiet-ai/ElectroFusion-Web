@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ElectroFusion — About Us</title>
+<meta name="description" content="Learn about ElectroFusion's mission and how our student engineers build hardware projects.">
+
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Cpolygon points='30,11 30,29 20,35 10,29 10,11 20,5' fill='%230d1f18' stroke='%23d68a3c' stroke-width='2'/%3E%3Ctext x='20' y='25' font-family='monospace' font-weight='bold' font-size='12' fill='%23d68a3c' text-anchor='middle'%3EEF%3C/text%3E%3C/svg%3E">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<div class="pcb-backdrop" aria-hidden="true"></div>
+
+<header class="site-header" id="top">
+  <div class="wrap header-row">
+    <a class="brand" href="index.html" aria-label="ElectroFusion home">
+      <svg class="brand-mark" viewBox="0 0 40 40" aria-hidden="true">
+        <polygon points="30,11 30,29 20,35 10,29 10,11 20,5"/>
+        <text x="20" y="25" text-anchor="middle">EF</text>
+      </svg>
+      <span class="brand-word">ElectroFusion</span>
+    </a>
+    <nav class="main-nav" id="main-nav" aria-label="Primary">
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="activities.html">Activities</a>
+      <a href="team.html">Team</a>
+      <a href="index.html#join" class="nav-cta">Join Us</a>
+    </nav>
+    <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="main-nav" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<main id="main">
+  <!-- ============ ABOUT ============ -->
+  <section class="section" id="about" style="padding-top: 120px;">
+    <div class="wrap about-grid">
+      <div data-reveal>
+        <p class="eyebrow">01 — About</p>
+        <h2 class="section-title">A society built like the systems we design</h2>
+        <p class="body-lg">
+          Electrical and electronics engineering rarely stays inside one discipline — a single
+          project can pull in power systems, firmware, signal processing, and PCB layout all at
+          once. ElectroFusion exists so students don't have to chase those skills alone. It's where
+          coursework turns into hardware, and where first-years and final-years end up debugging
+          the same circuit at 11pm.
+        </p>
+        <p class="body-lg">
+          Whether you're picking up a soldering iron for the first time or already have a stack of
+          finished boards, there's a bench here for you.
+        </p>
+      </div>
+
+      <aside class="spec-sheet" data-reveal aria-label="Society information">
+        <div class="spec-sheet-head">
+          <span>DATASHEET</span><span>REV. 01</span>
+        </div>
+        <dl class="spec-list">
+          <div class="spec-row"><dt>Type</dt><dd>Student Society</dd></div>
+          <div class="spec-row"><dt>Domain</dt><dd>Electrical &amp; Electronics Engineering</dd></div>
+          <div class="spec-row"><dt>Host Institute</dt><dd>Thapar Institute of Engineering &amp; Technology, Patiala</dd></div>
+          <div class="spec-row"><dt>Departments</dt><dd>EIED · ECED · Computer Engg.</dd></div>
+          <div class="spec-row"><dt>Status</dt><dd><span class="live-dot" aria-hidden="true"></span>Recruiting</dd></div>
+        </dl>
+      </aside>
+    </div>
+  </section>
+
+  <!-- ============ PROCESS ============ -->
+  <section class="section section-alt" id="process">
+    <div class="wrap">
+      <div class="section-head" data-reveal>
+        <p class="eyebrow">03 — Workflow</p>
+        <h2 class="section-title">How we build</h2>
+        <p class="body-lg section-intro">
+          Every project — from a weekend build to a semester-long one — moves through the same five stages.
+        </p>
+      </div>
+      <ol class="process-rail">
+        <li data-reveal><span class="step-no">01</span><h3>Ideate</h3><p>Spot a problem worth solving and sketch the concept.</p></li>
+        <li data-reveal><span class="step-no">02</span><h3>Design</h3><p>Simulate circuits, plan the architecture, choose components.</p></li>
+        <li data-reveal><span class="step-no">03</span><h3>Prototype</h3><p>Breadboard it, order the PCB, write the firmware.</p></li>
+        <li data-reveal><span class="step-no">04</span><h3>Test &amp; Iterate</h3><p>Debug, measure, refine — repeat until it's solid.</p></li>
+        <li data-reveal><span class="step-no">05</span><h3>Showcase</h3><p>Present at expos, workshops, and competitions.</p></li>
+      </ol>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap footer-grid">
+    <div>
+      <a class="brand" href="index.html" aria-label="ElectroFusion home">
+        <svg class="brand-mark" viewBox="0 0 40 40" aria-hidden="true">
+          <polygon points="30,11 30,29 20,35 10,29 10,11 20,5"/>
+          <text x="20" y="25" text-anchor="middle">EF</text>
+        </svg>
+        <span class="brand-word">ElectroFusion</span>
+      </a>
+      <p class="footer-tagline">Student Society for Electrical &amp; Electronics Engineering<br>Thapar Institute of Engineering &amp; Technology, Patiala</p>
+    </div>
+    <nav class="footer-nav" aria-label="Footer">
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="activities.html">Activities</a>
+      <a href="team.html">Team</a>
+    </nav>
+    <div class="footer-social">
+      <a href="#" aria-label="Instagram">Instagram</a>
+      <a href="#" aria-label="LinkedIn">LinkedIn</a>
+      <a href="mailto:electrofusion@thapar.edu" aria-label="Email">Email</a>
+    </div>
+  </div>
+  <div class="wrap footer-bottom">
+    <p>&copy; <span id="year"></span> ElectroFusion, TIET. All rights reserved.</p>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
