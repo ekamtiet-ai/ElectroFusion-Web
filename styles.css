@@ -192,7 +192,7 @@ a{ color: inherit; text-decoration: none; }
 /* =========================================================
    Hero
    ========================================================= */
-.hero{ padding: 64px 0 40px; }
+.hero{ padding: 64px 0 40px; position: relative; }
 .hero-grid{
   display:grid; grid-template-columns: 1.05fr 0.95fr; gap: 48px; align-items:center;
 }
