@@ -151,6 +151,6 @@ window.addEventListener('load', () => {
     // 1.2-second delay to show off the charging animation
     setTimeout(() => {
       preloader.classList.add('loader-hidden');
-    }, 1200); 
+    }, 3000); 
   }
 });
