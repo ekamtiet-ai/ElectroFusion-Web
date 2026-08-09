@@ -460,3 +460,152 @@ a{ color: inherit; text-decoration: none; }
 a:focus-visible, button:focus-visible{
   outline: 2px solid var(--copper-bright); outline-offset: 3px;
 }
+
+/* =========================================================
+   Circuit Tree Navigation
+   ========================================================= */
+.circuit-tree-section {
+  position: relative;
+  overflow: hidden;
+}
+
+.circuit-tree {
+  position: relative;
+  max-width: 800px;
+  margin: 60px auto 0;
+  padding: 40px 0;
+}
+
+/* The Central Trace (Spine) */
+.tree-spine {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 2px;
+  background: var(--panel-border);
+  transform: translateX(-50%);
+  z-index: 1;
+}
+
+/* Branch Containers */
+.tree-branch {
+  position: relative;
+  width: 50%;
+  padding: 20px 40px;
+  z-index: 2;
+}
+
+.tree-branch.left {
+  left: 0;
+  text-align: right;
+}
+
+.tree-branch.right {
+  left: 50%;
+  text-align: left;
+}
+
+/* Clickable Branch Content (Glassmorphism) */
+.branch-content {
+  display: inline-flex;
+  align-items: center;
+  gap: 24px;
+  background: rgba(16, 37, 30, 0.6);
+  backdrop-filter: blur(8px);
+  border: 1px solid var(--panel-border);
+  padding: 24px 32px;
+  border-radius: var(--radius);
+  text-decoration: none;
+  transition: all 0.3s ease;
+  width: 100%;
+  max-width: 350px;
+}
+
+.tree-branch.left .branch-content {
+  flex-direction: row-reverse;
+  margin-left: auto;
+}
+
+/* Hover Effects */
+.branch-content:hover {
+  border-color: var(--copper);
+  transform: translateY(-5px);
+  box-shadow: 0 8px 24px rgba(214, 138, 60, 0.15);
+}
+
+.branch-content h3 {
+  font-size: 1.15rem;
+  color: var(--copper-bright);
+  margin-bottom: 8px;
+  transition: color 0.3s ease;
+}
+
+.branch-content p {
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+.branch-content:hover h3 {
+  color: var(--teal);
+}
+
+/* Circuit Nodes (Dots on the spine) */
+.node {
+  position: absolute;
+  top: 50%;
+  width: 16px;
+  height: 16px;
+  background: var(--bg);
+  border: 3px solid var(--copper);
+  border-radius: 50%;
+  transform: translateY(-50%);
+  transition: all 0.3s ease;
+}
+
+.tree-branch.left .node { right: -8px; }
+.tree-branch.right .node { left: -8px; }
+
+/* Connecting Lines (Traces from spine to card) */
+.tree-branch::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  width: 40px;
+  height: 2px;
+  background: var(--panel-border);
+  z-index: -1;
+  transition: background 0.3s ease;
+}
+
+.tree-branch.left::before { right: 0; }
+.tree-branch.right::before { left: 0; }
+
+.branch-content:hover .node {
+  background: var(--copper);
+  box-shadow: 0 0 15px var(--copper);
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+  .tree-spine {
+    left: 20px;
+  }
+  .tree-branch {
+    width: 100%;
+    left: 0 !important;
+    padding: 20px 0 20px 50px;
+    text-align: left;
+  }
+  .tree-branch.left .branch-content {
+    flex-direction: row;
+    margin-left: 0;
+  }
+  .node {
+    left: 12px !important;
+  }
+  .tree-branch::before {
+    left: 20px !important;
+    width: 30px;
+  }
+}
