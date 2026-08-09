@@ -477,6 +477,7 @@ a:focus-visible, button:focus-visible{
 }
 
 /* The Central Trace (Spine) */
+/* The Central Trace (Spine) */
 .tree-spine {
   position: absolute;
   top: 0;
@@ -486,8 +487,28 @@ a:focus-visible, button:focus-visible{
   background: var(--panel-border);
   transform: translateX(-50%);
   z-index: 1;
+  --scroll-glow: 0%; /* JavaScript controls this variable */
 }
 
+/* The Glowing Copper Charge */
+.tree-spine::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: var(--scroll-glow);
+  background: var(--copper-bright);
+  box-shadow: 0 0 12px var(--copper-bright);
+  transition: height 0.1s ease-out;
+}
+
+/* Lights up the nodes when the charge hits them */
+.node.active-node {
+  background: var(--copper);
+  box-shadow: 0 0 15px var(--copper);
+  border-color: var(--copper-bright);
+}
 /* Branch Containers */
 .tree-branch {
   position: relative;

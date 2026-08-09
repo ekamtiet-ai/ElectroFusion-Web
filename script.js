@@ -100,3 +100,43 @@ if (document.getElementById('particles-js')) {
     "retina_detect": true
   });
 }
+
+// ==========================================
+// Circuit Tree Scroll Glow Tracker
+// ==========================================
+const treeSection = document.querySelector('.circuit-tree');
+const treeSpine = document.querySelector('.tree-spine');
+const treeBranches = document.querySelectorAll('.tree-branch');
+
+if (treeSection && treeSpine) {
+  window.addEventListener('scroll', () => {
+    // Calculate distances
+    const rect = treeSection.getBoundingClientRect();
+    const windowHeight = window.innerHeight;
+    
+    // Start the glow when the tree reaches the middle of the screen
+    const scrollStart = windowHeight / 2;
+    let scrollProgress = 0;
+
+    // Calculate percentage filled
+    if (rect.top < scrollStart) {
+      scrollProgress = ((scrollStart - rect.top) / rect.height) * 100;
+      scrollProgress = Math.max(0, Math.min(scrollProgress, 100)); // Cap between 0 and 100
+    }
+    
+    // Send the percentage to CSS
+    treeSpine.style.setProperty('--scroll-glow', `${scrollProgress}%`);
+
+    // Light up nodes as the trace passes them
+    treeBranches.forEach(branch => {
+      const branchRect = branch.getBoundingClientRect();
+      const node = branch.querySelector('.node');
+      
+      if (branchRect.top < scrollStart && node) {
+        node.classList.add('active-node');
+      } else if (node) {
+        node.classList.remove('active-node');
+      }
+    });
+  });
+}
