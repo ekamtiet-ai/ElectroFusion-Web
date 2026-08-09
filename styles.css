@@ -92,6 +92,11 @@ a{ color: inherit; text-decoration: none; }
 }
 .brand{ display:flex; align-items:center; gap:10px; }
 .brand-mark{ width: 32px; height:32px; }
+.brand-logo { 
+  height: 40px; /* Adjust this number if you want the logo bigger or smaller */
+  width: auto; 
+  display: block;
+}
 .brand-mark polygon{ fill: var(--bg-alt); stroke: var(--copper); stroke-width:2; }
 .brand-mark text{ font-family: var(--font-mono); font-weight:600; font-size:12px; fill: var(--copper); }
 .brand-word{ font-family: var(--font-display); font-weight:700; font-size: 1.1rem; letter-spacing: -0.01em; }
