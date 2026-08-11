@@ -1096,3 +1096,22 @@ a:focus-visible, button:focus-visible{
   object-fit: cover;
   clip-path: circle(50% at 50% 50%);
 }
+/* =========================================================
+   Ultimate Hero Logo Mask
+   ========================================================= */
+/* Target the container holding that specific hero logo */
+.hero-logo-container, 
+div:has(> .hero-logo),
+.hero-card {
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+/* Force the image itself to drop its background and clip hard */
+.hero-logo {
+  background: transparent !important;
+  border-radius: 50% !important;
+  object-fit: cover !important;
+  -webkit-mask-image: radial-gradient(circle, white 100%, transparent 100%);
+  mask-image: radial-gradient(circle, white 100%, transparent 100%);
+}
