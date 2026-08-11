@@ -1122,7 +1122,7 @@ div:has(> .hero-logo),
 .brand-logo,
 .hero-logo,
 .hero-card img {
-  border-radius: 50%;
+  border-radius: 70%;
   object-fit: cover;
   clip-path: circle(50% at 50% 50%);
 }
