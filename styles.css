@@ -815,7 +815,7 @@ a:focus-visible, button:focus-visible{
 }
 
 .loader-logo {
-  height: 65px; /* Increased logo size */
+  height: 90px; /* Increased logo size */
   width: auto;
   z-index: 2;
   filter: drop-shadow(0 0 10px rgba(214, 138, 60, 0.4));
