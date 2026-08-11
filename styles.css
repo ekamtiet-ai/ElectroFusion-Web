@@ -1086,9 +1086,12 @@ a:focus-visible, button:focus-visible{
 }
 
 /* =========================================================
-   Circular Logo Override
+   Global Circular Logo Override
    ========================================================= */
-.brand-logo {
+.brand-logo,
+.hero-logo,
+.preloader img,
+.hero-card img {
   border-radius: 50%;
   object-fit: cover;
 }
