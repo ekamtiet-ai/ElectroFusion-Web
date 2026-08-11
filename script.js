@@ -154,3 +154,38 @@ window.addEventListener('load', () => {
     }, 2000); 
   }
 });
+
+// ==========================================
+// 3D Timeline Scroll Tracker
+// ==========================================
+const timelineContainer = document.querySelector('.timeline-container');
+const timelineSpineFill = document.querySelector('.timeline-glow-fill');
+const timelineItems = document.querySelectorAll('.timeline-item');
+
+if (timelineContainer && timelineSpineFill) {
+  window.addEventListener('scroll', () => {
+    const rect = timelineContainer.getBoundingClientRect();
+    const windowHeight = window.innerHeight;
+    const scrollStart = windowHeight / 1.5; 
+    
+    let scrollProgress = 0;
+
+    // Calculate percentage filled for the central spine
+    if (rect.top < scrollStart) {
+      scrollProgress = ((scrollStart - rect.top) / rect.height) * 100;
+      scrollProgress = Math.max(0, Math.min(scrollProgress, 100)); 
+    }
+    
+    timelineSpineFill.style.height = `${scrollProgress}%`;
+
+    // Snap nodes "on" when the line reaches them
+    timelineItems.forEach(item => {
+      const itemRect = item.getBoundingClientRect();
+      if (itemRect.top < scrollStart) {
+        item.classList.add('active');
+      } else {
+        item.classList.remove('active');
+      }
+    });
+  });
+}

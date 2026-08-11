@@ -904,3 +904,183 @@ a:focus-visible, button:focus-visible{
   opacity: 0;
   visibility: hidden;
 }
+
+/* =========================================================
+   3D Event Timeline
+   ========================================================= */
+.timeline-container {
+  position: relative;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 40px 0;
+}
+
+/* The Central Trace */
+.timeline-spine {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 2px;
+  background: var(--panel-border);
+  transform: translateX(-50%);
+  z-index: 1;
+}
+
+.timeline-glow-fill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 0%; /* JS will fill this */
+  background: var(--teal);
+  box-shadow: 0 0 15px var(--teal);
+  transition: height 0.1s ease-out;
+}
+
+/* The Timeline Items */
+.timeline-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 60px;
+  position: relative;
+  z-index: 2;
+}
+
+.timeline-item.right {
+  flex-direction: row-reverse;
+}
+
+/* The Glowing Nodes */
+.timeline-dot {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 16px;
+  height: 16px;
+  background: #0f1c18;
+  border: 2px solid var(--panel-border);
+  border-radius: 50%;
+  transition: all 0.4s ease;
+}
+
+.timeline-item.active .timeline-dot {
+  background: var(--teal);
+  border-color: var(--teal);
+  box-shadow: 0 0 15px var(--teal);
+}
+
+/* The Dates */
+.timeline-date {
+  width: 45%;
+  font-family: var(--font-mono);
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--copper);
+  letter-spacing: 0.05em;
+  text-align: right;
+  padding: 0 40px;
+}
+
+.timeline-item.right .timeline-date {
+  text-align: left;
+}
+
+/* 3D Card Wrappers */
+.timeline-card-wrapper {
+  width: 45%;
+  perspective: 1000px; /* Enables 3D space */
+}
+
+/* The Glass Cards */
+.timeline-card {
+  background: rgba(16, 37, 30, 0.4);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(95, 214, 196, 0.15);
+  border-radius: 12px;
+  padding: 24px;
+  transition: transform 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease;
+  transform-style: preserve-3d;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+}
+
+/* 3D Tilt on Hover */
+.timeline-item.left .timeline-card:hover {
+  transform: rotateY(5deg) rotateX(2deg) translateY(-5px);
+  border-color: var(--teal);
+  box-shadow: -10px 15px 30px rgba(95, 214, 196, 0.15);
+}
+
+.timeline-item.right .timeline-card:hover {
+  transform: rotateY(-5deg) rotateX(2deg) translateY(-5px);
+  border-color: var(--teal);
+  box-shadow: 10px 15px 30px rgba(95, 214, 196, 0.15);
+}
+
+.timeline-card h3 {
+  font-size: 1.1rem;
+  color: var(--ink);
+  margin: 0 0 12px 0;
+  line-height: 1.4;
+}
+
+.timeline-card p {
+  font-size: 0.85rem;
+  color: var(--ink-faint);
+  margin-bottom: 16px;
+}
+
+/* Badges (DORDC / TIET) */
+.event-tags {
+  display: flex;
+  gap: 12px;
+}
+
+.tag {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 20px;
+  letter-spacing: 0.05em;
+}
+
+.tag.teal {
+  background: rgba(95, 214, 196, 0.15);
+  color: var(--teal);
+  border: 1px solid var(--teal);
+}
+
+.tag.copper {
+  background: rgba(214, 138, 60, 0.15);
+  color: var(--copper);
+  border: 1px solid var(--copper);
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+  .timeline-spine {
+    left: 20px;
+  }
+  .timeline-dot {
+    left: 20px;
+  }
+  .timeline-item, .timeline-item.right {
+    flex-direction: column;
+    align-items: flex-start;
+    padding-left: 50px;
+  }
+  .timeline-date {
+    width: 100%;
+    text-align: left !important;
+    padding: 0 0 12px 0;
+    font-size: 1.2rem;
+  }
+  .timeline-card-wrapper {
+    width: 100%;
+  }
+}
