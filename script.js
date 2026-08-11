@@ -151,6 +151,6 @@ window.addEventListener('load', () => {
     // Increased delay to 3.5 seconds
     setTimeout(() => {
       preloader.classList.add('loader-hidden');
-    }, 3500); 
+    }, 3000); 
   }
 });
