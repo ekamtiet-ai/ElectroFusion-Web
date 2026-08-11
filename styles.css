@@ -1115,3 +1115,13 @@ div:has(> .hero-logo),
   -webkit-mask-image: radial-gradient(circle, white 100%, transparent 100%);
   mask-image: radial-gradient(circle, white 100%, transparent 100%);
 }
+
+/* =========================================================
+   Enlarge Preloader Logo
+   ========================================================= */
+.preloader img,
+.preloader svg {
+  width: 90px; /* Adjust this number to make it larger or smaller */
+  height: 90px;
+  max-width: none;
+}
