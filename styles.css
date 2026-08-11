@@ -1086,7 +1086,7 @@ a:focus-visible, button:focus-visible{
 }
 
 /* =========================================================
-   Global Circular Logo Override
+   True Circular Clip Override
    ========================================================= */
 .brand-logo,
 .hero-logo,
@@ -1094,4 +1094,5 @@ a:focus-visible, button:focus-visible{
 .hero-card img {
   border-radius: 50%;
   object-fit: cover;
+  clip-path: circle(50% at 50% 50%);
 }
