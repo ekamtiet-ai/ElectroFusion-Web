@@ -1117,11 +1117,20 @@ div:has(> .hero-logo),
 }
 
 /* =========================================================
-   Enlarge Preloader Logo
+   Global Circular Logo & Preloader Override
    ========================================================= */
-.preloader img,
-.preloader svg {
-  width: 90px; /* Adjust this number to make it larger or smaller */
-  height: 90px;
+.brand-logo,
+.hero-logo,
+.hero-card img {
+  border-radius: 50%;
+  object-fit: cover;
+  clip-path: circle(50% at 50% 50%);
+}
+
+.preloader img {
+  width: 110px; /* Increased size to fill the ring */
+  height: 110px;
   max-width: none;
+  border-radius: 50%;
+  object-fit: cover;
 }
