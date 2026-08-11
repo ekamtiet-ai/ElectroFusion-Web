@@ -1117,20 +1117,23 @@ div:has(> .hero-logo),
 }
 
 /* =========================================================
-   Global Circular Logo & Preloader Override
+   Global Circular Logo & Center Hub Override
    ========================================================= */
 .brand-logo,
 .hero-logo,
 .hero-card img {
-  border-radius: 70%;
+  border-radius: 50%;
   object-fit: cover;
   clip-path: circle(50% at 50% 50%);
 }
 
-.preloader img {
-  width: 110px; /* Increased size to fill the ring */
-  height: 110px;
-  max-width: none;
-  border-radius: 50%;
-  object-fit: cover;
+/* Force the central network hub image to fill its container */
+.hero-card img, 
+.hero-logo,
+.network-center img {
+  width: 100% !important;
+  height: 100% !important;
+  max-width: none !important;
+  object-fit: cover !important;
+  border-radius: 50% !important;
 }
