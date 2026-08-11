@@ -726,7 +726,7 @@ a:focus-visible, button:focus-visible{
   background: var(--copper-bright);
   box-shadow: 0 0 10px var(--copper-bright);
   /* Slowed down to 3.5 seconds to match JS */
-  animation: loadBar 3.5s cubic-bezier(0.4, 0, 0.2, 1) forwards; 
+  animation: loadBar 1.5s cubic-bezier(0.4, 0, 0.2, 1) forwards; 
 }
 
 /* The Animations */
