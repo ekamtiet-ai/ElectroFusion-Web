@@ -1194,3 +1194,38 @@ div:has(> .hero-logo),
 .elite-percentage {
   color: rgba(255, 255, 255, 0.3); font-family: monospace; font-size: 0.75rem; letter-spacing: 3px;
 }
+
+/* Container for the central logo */
+.hero-logo-container {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  min-height: 50vh; /* Adjust this if you need more/less vertical space */
+}
+
+/* Enlarged Logo Style */
+.central-epicenter-logo {
+  width: 220px;  /* Significantly larger size */
+  height: 220px;
+  object-fit: contain;
+  border-radius: 50%;
+  background-color: #050b09; /* Matches your old SVG core fill */
+  border: 3px solid #5fd6c4; /* Matches your old SVG core stroke */
+  box-shadow: 0 0 50px rgba(95, 214, 196, 0.4); /* Neon glow effect */
+  animation: pulse-glow 3s ease-in-out infinite alternate;
+}
+
+/* Subtle breathing glow animation */
+@keyframes pulse-glow {
+  0% {
+    box-shadow: 0 0 30px rgba(95, 214, 196, 0.2);
+    transform: scale(1);
+  }
+  100% {
+    box-shadow: 0 0 80px rgba(95, 214, 196, 0.6);
+    transform: scale(1.05);
+  }
+}
