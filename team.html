@@ -283,7 +283,8 @@
 
 <script src="script.js"></script>
 <script>
-    window.addEventListener('load', () => {
+    //DOMContentLoaded fires instantly when HTML is ready, not waiting for slow images
+    document.addEventListener('DOMContentLoaded', () => {
       const title = document.querySelector('.elite-title');
       const subtitle = document.querySelector('.elite-subtitle');
       const logoReveal = document.querySelector('.logo-reveal');
@@ -291,41 +292,67 @@
       const percent = document.getElementById('elite-percent');
       const preloader = document.getElementById('elite-preloader');
 
-      // 1. Smoothly glide the text upward on load
+      let isFinished = false;
+
+      // 1. Smoothly glide text upward instantly
       setTimeout(() => {
-        title.style.opacity = '1';
-        title.style.transform = 'translateY(0)';
-        subtitle.style.opacity = '1';
-        subtitle.style.transform = 'translateY(0)';
-      }, 100);
+        if(title) title.style.opacity = '1';
+        if(title) title.style.transform = 'translateY(0)';
+        if(subtitle) subtitle.style.opacity = '1';
+        if(subtitle) subtitle.style.transform = 'translateY(0)';
+      }, 50);
 
       // 2. Realistic Progress Bar Physics
       let p = 0;
       let interval = setInterval(() => {
-        // Accelerate loading, but stall slightly around 80-90% for tension
-        let increment = p > 85 ? Math.random() * 2 : Math.random() * 8;
+        if (isFinished) return;
+        
+        let increment = p > 85 ? Math.random() * 3 : Math.random() * 12;
         p += increment;
         
         if(p >= 100) p = 100;
         
-        bar.style.width = p + '%';
-        percent.innerText = (p < 10 ? '0' : '') + p.toFixed(1) + '%';
+        if(bar) bar.style.width = p + '%';
+        if(percent) percent.innerText = (p < 10 ? '0' : '') + p.toFixed(1) + '%';
 
         // 3. The Ignition Sequence (100%)
-        if(p === 100) {
-          clearInterval(interval);
+        if(p === 100 && !isFinished) {
+          triggerFinish();
+        }
+      }, 30); 
+
+      function triggerFinish() {
+        if (isFinished) return;
+        isFinished = true;
+        clearInterval(interval);
+
+        if(subtitle) {
           subtitle.innerText = "ACCESS GRANTED";
           subtitle.style.color = "#fff";
-          logoReveal.classList.add('ignite');
-
-          // 4. The Dissolve (zoom in and fade out)
-          setTimeout(() => {
-            preloader.style.opacity = '0';
-            preloader.style.transform = 'scale(1.08)'; // Subtle forward camera push
-            setTimeout(() => preloader.remove(), 1200);
-          }, 900); // Hold on the ignited logo for 0.9s before fading
         }
-      }, 40); // Updates every 40ms for a buttery smooth line
+        if(logoReveal) logoReveal.classList.add('ignite');
+
+        // 4. The Dissolve
+        setTimeout(() => {
+          if(preloader) {
+            preloader.style.opacity = '0';
+            preloader.style.transform = 'scale(1.08)';
+            preloader.style.pointerEvents = 'none'; // Prevents blocking clicks
+            setTimeout(() => preloader.remove(), 800);
+          }
+        }, 500);
+      }
+
+      // SAFETY FALLBACK: Force-clear preloader after 3.5s max, 
+      // ensuring slow connections never get trapped indefinitely.
+      setTimeout(() => {
+        if (!isFinished) {
+          p = 100;
+          if(bar) bar.style.width = '100%';
+          if(percent) percent.innerText = '100.0%';
+          triggerFinish();
+        }
+      }, 3500);
     });
   </script>
 </body>
