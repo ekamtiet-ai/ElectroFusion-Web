@@ -14,10 +14,24 @@
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-<!-- Avengers / Tech Boot Preloader -->
+<!-- ==========================================
+       JARVIS TACTICAL HUD PRELOADER 
+       ========================================== -->
   <div id="roster-preloader">
-    <div class="tech-scanner-ring"></div>
-    <div class="tech-text">ASSEMBLING ROSTER...</div>
+    <div class="hud-container">
+      <div class="hud-ring ring-1"></div>
+      <div class="hud-ring ring-2"></div>
+      <div class="hud-ring ring-3"></div>
+      <div class="hud-core">
+        <!-- Puts your transparent neon logo right in the reactor core -->
+        <img src="image_de9c50.png" alt="Core" class="core-logo">
+      </div>
+      <div class="scan-line"></div>
+    </div>
+    <div class="hud-terminal">
+      <span id="typing-text">UPLINK ESTABLISHED...</span>
+      <div class="hex-stream" id="hex-stream">0x000000</div>
+    </div>
   </div>
 <div class="pcb-backdrop" aria-hidden="true"></div>
 
@@ -268,15 +282,38 @@
 
 <script src="script.js"></script>
 <script>
-    // Reveal the roster after 1.5 seconds
     window.addEventListener('load', () => {
+      const hexStream = document.getElementById('hex-stream');
+      const typingText = document.getElementById('typing-text');
+      
+      // Real-time fake biometric decryption terminal
+      const hexInterval = setInterval(() => {
+        const randomHex = Math.floor(Math.random()*16777215).toString(16).toUpperCase().padStart(6, '0');
+        hexStream.innerText = `SYS_MEM: 0x${randomHex} | DECRYPTING_BIOMETRICS`;
+      }, 70);
+
+      // Story sequence for the text
+      setTimeout(() => { 
+        typingText.innerText = "ACCESS GRANTED"; 
+        typingText.style.color = "#00ffcc"; 
+        typingText.style.textShadow = "0 0 10px #00ffcc";
+      }, 1500);
+      
+      setTimeout(() => { 
+        typingText.innerText = "ASSEMBLING ROSTER..."; 
+        typingText.style.color = "#fff";
+      }, 2200);
+
+      // Fade out with a slight camera zoom effect
       setTimeout(() => {
+        clearInterval(hexInterval);
         const preloader = document.getElementById('roster-preloader');
         if(preloader) {
           preloader.style.opacity = '0';
-          setTimeout(() => preloader.remove(), 500);
+          preloader.style.transform = 'scale(1.2)'; // Zooms INTO the screen before vanishing
+          setTimeout(() => preloader.remove(), 800);
         }
-      }, 1500); 
+      }, 3200); // 3.2 seconds total duration
     });
   </script>
 </body>
