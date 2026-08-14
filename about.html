@@ -88,6 +88,17 @@
     border-top: 1px solid var(--glass-border);
     padding-top: 80px;
   }
+  
+  /* Added glass background and blur here so Mission & Vision are readable */
+  .mv-block {
+    background: rgba(2, 4, 5, 0.85); /* Dark translucent background */
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border: 1px solid var(--glass-border);
+    border-radius: 16px;
+    padding: 40px;
+  }
+
   .mv-block h3 {
     font-size: 2rem;
     margin-bottom: 20px;
@@ -112,12 +123,13 @@
     gap: 30px;
   }
   .glass-card {
-    background: var(--glass-bg);
+    background: rgba(2, 4, 5, 0.85); /* Updated to ensure solid dark translucency */
     border: 1px solid var(--glass-border);
     border-radius: 16px;
     padding: 40px 30px;
     transition: transform 0.3s ease, border-color 0.3s ease;
-    backdrop-filter: blur(10px);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
   }
   .glass-card:hover {
     transform: translateY(-5px);
@@ -147,15 +159,20 @@
     margin-top: 40px;
   }
   .process-step {
-    border-left: 2px solid var(--glass-border);
-    padding-left: 20px;
+    background: rgba(2, 4, 5, 0.75); /* Added translucent background */
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid var(--glass-border); /* Wrapped card with a border */
+    border-left: 4px solid var(--neon-cyan); /* Kept accent */
+    padding: 25px;
+    border-radius: 12px;
     position: relative;
   }
   .process-step::before {
     content: '';
     position: absolute;
     left: -6px;
-    top: 0;
+    top: 25px;
     width: 10px;
     height: 10px;
     background: var(--neon-cyan);
@@ -169,7 +186,7 @@
     margin-bottom: 10px;
     display: block;
   }
-</style>
+  </style>
 </head>
 <body>
 
