@@ -15,20 +15,24 @@
 </head>
 <body>
 <!-- ==========================================
-       CYBERPUNK OVERLOAD PRELOADER
+       ELITE CINEMATIC PRELOADER
        ========================================== -->
-  <div id="hype-preloader">
-    <div class="noise-overlay"></div>
-    <div id="terminal-chaos"></div>
-    
-    <div class="glitch-center">
-      <div class="glitch-logo-wrapper">
-        <img src="image_de9c50.png" alt="ElectroFusion Core" class="hype-logo" id="hype-logo">
+  <div id="elite-preloader">
+    <div class="elite-content">
+      <div class="logo-reveal">
+        <img src="image_de9c50.png" alt="ElectroFusion Core" class="elite-logo">
       </div>
-      <h1 class="glitch-text" id="status-text" data-text="SYSTEM BREACH">SYSTEM BREACH</h1>
+      
+      <div class="elite-text-box">
+        <div class="elite-title">ELECTROFUSION ROSTER</div>
+        <div class="elite-subtitle">ESTABLISHING SECURE CONNECTION...</div>
+      </div>
+      
+      <div class="elite-progress-container">
+        <div class="elite-progress-bar" id="elite-bar"></div>
+      </div>
+      <div class="elite-percentage" id="elite-percent">00.0%</div>
     </div>
-    
-    <div class="flashbang" id="flashbang"></div>
   </div>
 <div class="pcb-backdrop" aria-hidden="true"></div>
 
@@ -280,54 +284,48 @@
 <script src="script.js"></script>
 <script>
     window.addEventListener('load', () => {
-      const preloader = document.getElementById('hype-preloader');
-      const chaosBg = document.getElementById('terminal-chaos');
-      const centerHud = document.querySelector('.glitch-center');
-      const logo = document.getElementById('hype-logo');
-      const statusText = document.getElementById('status-text');
-      const flashbang = document.getElementById('flashbang');
+      const title = document.querySelector('.elite-title');
+      const subtitle = document.querySelector('.elite-subtitle');
+      const logoReveal = document.querySelector('.logo-reveal');
+      const bar = document.getElementById('elite-bar');
+      const percent = document.getElementById('elite-percent');
+      const preloader = document.getElementById('elite-preloader');
 
-      // 1. Start the background data flood
-      let chaosInterval = setInterval(() => {
-        let gibberish = "";
-        for(let i=0; i<300; i++) {
-          gibberish += Math.random().toString(36).substring(2, 4).toUpperCase() + " ";
-        }
-        chaosBg.innerText = gibberish;
-      }, 50);
-
-      // 2. Escalate to System Overload at 1 second
+      // 1. Smoothly glide the text upward on load
       setTimeout(() => {
-        chaosBg.style.opacity = '1';
-        centerHud.classList.add('screen-shake');
-        logo.classList.add('logo-glitch');
-        statusText.innerText = "CRITICAL OVERLOAD";
-        statusText.style.color = "#ff3366";
-      }, 1000);
+        title.style.opacity = '1';
+        title.style.transform = 'translateY(0)';
+        subtitle.style.opacity = '1';
+        subtitle.style.transform = 'translateY(0)';
+      }, 100);
 
-      // 3. The Freeze (Tension Drop) at 2.5 seconds
-      setTimeout(() => {
-        clearInterval(chaosInterval); // Stop the data flood
-        chaosBg.style.opacity = '0';
-        centerHud.classList.remove('screen-shake');
-        logo.classList.remove('logo-glitch');
-        statusText.innerText = "ROSTER ASSEMBLED";
-        statusText.style.color = "#00f0ff";
-        statusText.style.animation = "none";
-        statusText.style.textShadow = "0 0 20px #00f0ff";
-        logo.style.transform = "scale(1.3)";
-        logo.style.transition = "transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275)";
-      }, 2500);
-
-      // 4. The Detonation (Flashbang into the site) at 3.2 seconds
-      setTimeout(() => {
-        flashbang.classList.add('detonate');
-        preloader.style.opacity = '0';
-        preloader.style.transition = "opacity 0.1s";
+      // 2. Realistic Progress Bar Physics
+      let p = 0;
+      let interval = setInterval(() => {
+        // Accelerate loading, but stall slightly around 80-90% for tension
+        let increment = p > 85 ? Math.random() * 2 : Math.random() * 8;
+        p += increment;
         
-        // Remove completely from DOM after flashbang clears
-        setTimeout(() => preloader.remove(), 1000);
-      }, 3200);
+        if(p >= 100) p = 100;
+        
+        bar.style.width = p + '%';
+        percent.innerText = (p < 10 ? '0' : '') + p.toFixed(1) + '%';
+
+        // 3. The Ignition Sequence (100%)
+        if(p === 100) {
+          clearInterval(interval);
+          subtitle.innerText = "ACCESS GRANTED";
+          subtitle.style.color = "#fff";
+          logoReveal.classList.add('ignite');
+
+          // 4. The Dissolve (zoom in and fade out)
+          setTimeout(() => {
+            preloader.style.opacity = '0';
+            preloader.style.transform = 'scale(1.08)'; // Subtle forward camera push
+            setTimeout(() => preloader.remove(), 1200);
+          }, 900); // Hold on the ignited logo for 0.9s before fading
+        }
+      }, 40); // Updates every 40ms for a buttery smooth line
     });
   </script>
 </body>
