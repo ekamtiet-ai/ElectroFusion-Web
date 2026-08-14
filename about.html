@@ -118,12 +118,15 @@
     text-align: center;
   }
   .card-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-    gap: 30px;
-    justify-content: center;
-    margin: 0 auto;
-  }
+  display: grid;
+  /* Use auto-fill instead of auto-fit so it builds columns from the center out */
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 30px;
+  justify-content: center;
+  justify-items: center; /* <--- This forces the individual cards to center inside their grid tracks */
+  max-width: 1200px;     /* <--- Restricts total width so it doesn't span infinitely */
+  margin: 0 auto;        /* <--- Centers the whole block */
+}
   .glass-card {
     background: rgba(2, 4, 5, 0.85); /* Updated to ensure solid dark translucency */
     border: 1px solid var(--glass-border);
