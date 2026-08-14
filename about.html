@@ -3,272 +3,429 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ElectroFusion — About Us</title>
+<title>ElectroFusion — Venture Builder</title>
 
+<!-- Fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@300;400;600;700;900&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-<!-- The Interactive Physics Engines -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.globe.min.js"></script>
+<!-- 3D & Animation Libraries -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.0/vanilla-tilt.min.js"></script>
 
 <style>
   /* ==========================================
-     INTERACTIVE PHYSICS & LAYOUT
+     WEBGL & CINEMATIC SCROLL ARCHITECTURE
      ========================================== */
   :root {
-    --glass-bg: rgba(10, 15, 20, 0.4);
-    --glass-border: rgba(0, 240, 255, 0.15);
-    --neon-cyan: #00f0ff;
-    --text-muted: rgba(255, 255, 255, 0.7);
+    --bg-color: #eef1f6;
+    --text-main: #1a1f2b;
+    --text-muted: #5a6270;
+    --glass-bg: rgba(255, 255, 255, 0.4);
+    --glass-border: rgba(255, 255, 255, 0.8);
+    --accent-red: #ff4757;
   }
 
-  /* Hide default cursor for the custom one */
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
   body {
-    background-color: #020405;
-    color: #ffffff;
+    background-color: var(--bg-color);
+    color: var(--text-main);
     font-family: 'Inter', sans-serif;
     overflow-x: hidden;
-    cursor: none; 
+    /* We allow vertical scrolling, but the canvas stays fixed */
   }
 
-  /* --- CUSTOM MAGNETIC CURSOR --- */
-  .cursor-dot, .cursor-outline {
+  /* The 3D Canvas fixed in the background */
+  #webgl-canvas {
     position: fixed;
     top: 0; left: 0;
-    transform: translate(-50%, -50%);
-    border-radius: 50%;
-    z-index: 99999;
-    pointer-events: none;
-  }
-  .cursor-dot {
-    width: 8px; height: 8px;
-    background-color: var(--neon-cyan);
-  }
-  .cursor-outline {
-    width: 40px; height: 40px;
-    border: 1px solid rgba(0, 240, 255, 0.5);
-    transition: width 0.2s, height 0.2s, background-color 0.2s;
+    width: 100vw; height: 100vh;
+    z-index: 0;
+    pointer-events: none; /* Let clicks pass through to the DOM */
   }
 
-  /* Fixed 3D Background */
-  #vanta-bg {
-    position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
-    z-index: -1; opacity: 0.85;
+  /* The Scrollable Container */
+  #scroll-container {
+    position: relative;
+    z-index: 1;
   }
 
-  .about-section {
-    position: relative; padding: 120px 5%; max-width: 1300px; margin: 0 auto; z-index: 2;
+  /* Individual Cinematic Sections */
+  .scene {
+    position: relative;
+    width: 100vw;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding: 0 8vw;
   }
 
-  /* --- HERO SECTION --- */
-  .hero-3d { min-height: 90vh; display: flex; flex-direction: column; justify-content: center; padding-top: 150px; }
-  
-  /* Initial state for GSAP animations */
-  .gsap-reveal { visibility: hidden; } 
-
-  .hero-headline {
-    font-size: clamp(3.5rem, 7vw, 6rem); font-weight: 900; line-height: 1.05;
-    letter-spacing: -2px; margin-bottom: 25px; text-transform: uppercase;
-    text-shadow: 0 10px 30px rgba(0,0,0,0.8);
-  }
-  .hero-sub {
-    font-size: clamp(1.2rem, 2vw, 1.5rem); color: var(--text-muted);
-    max-width: 650px; font-weight: 300; line-height: 1.6;
-  }
-
-  /* --- 3D TILT CARDS --- */
-  .section-title { font-size: 3.5rem; font-weight: 700; margin-bottom: 60px; text-align: center; }
-  .card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; }
-  
-  .glass-card {
+  /* Glassmorphism Panel Base */
+  .glass-panel {
     background: var(--glass-bg);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
     border: 1px solid var(--glass-border);
-    border-radius: 16px;
-    padding: 40px 30px;
-    backdrop-filter: blur(12px);
-    transform-style: preserve-3d; /* Required for the 3D tilt pop effect */
+    border-radius: 20px;
+    box-shadow: 0 8px 32px rgba(31, 38, 135, 0.07);
+    padding: 40px;
   }
-  
-  /* Pops the icon and text out in 3D when tilting */
-  .glass-card .card-icon {
-    font-size: 2.5rem; margin-bottom: 20px; color: var(--neon-cyan);
-    transform: translateZ(30px); 
-  }
-  .glass-card h4 { font-size: 1.5rem; margin-bottom: 15px; font-weight: 600; transform: translateZ(20px); }
-  .glass-card p { color: var(--text-muted); line-height: 1.6; transform: translateZ(10px); }
 
-  /* --- PROCESS TIMELINE --- */
-  .process-timeline { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 40px; }
-  .process-step { border-left: 2px solid var(--glass-border); padding-left: 20px; position: relative; }
-  .process-step::before {
-    content: ''; position: absolute; left: -6px; top: 0; width: 10px; height: 10px;
-    background: var(--neon-cyan); border-radius: 50%; box-shadow: 0 0 15px var(--neon-cyan);
+  /* --- SCENE 1: HERO --- */
+  .hero-content {
+    max-width: 450px;
+    margin-top: 10vh;
   }
-  .step-num { font-family: monospace; color: var(--neon-cyan); letter-spacing: 2px; margin-bottom: 10px; display: block; }
+  .hero-title {
+    font-size: 3.5rem; font-weight: 300; letter-spacing: -1px; margin-bottom: 20px;
+  }
+  .hero-desc {
+    font-size: 1.1rem; line-height: 1.6; color: var(--text-muted); margin-bottom: 30px;
+  }
+  .hero-nav {
+    position: absolute; right: 8vw; top: 30vh;
+    display: flex; flex-direction: column; gap: 15px; text-align: right;
+  }
+  .hero-nav a {
+    text-decoration: none; color: var(--text-muted); font-size: 0.9rem; letter-spacing: 1px;
+    text-transform: uppercase; transition: color 0.3s;
+  }
+  .hero-nav a:hover { color: var(--text-main); }
+
+  /* --- SCENE 2: CORE DOMAINS --- */
+  .core-scene { flex-direction: column; justify-content: center; align-items: flex-start; }
+  .section-heading {
+    display: flex; align-items: center; gap: 10px; font-size: 2rem; font-weight: 300; margin-bottom: 40px;
+  }
+  .section-heading::before {
+    content: ''; width: 12px; height: 12px; background: var(--accent-red); border-radius: 50%;
+  }
+  .core-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; width: 100%;
+  }
+  .core-card {
+    height: 350px; display: flex; flex-direction: column; justify-content: flex-start;
+  }
+  .core-card h3 { font-size: 1.5rem; font-weight: 400; margin-bottom: 15px; text-align: center; }
+  .core-card p { font-size: 0.9rem; color: var(--text-muted); line-height: 1.5; text-align: center; }
+
+  /* --- SCENE 3: INTERACTIVE STATS --- */
+  .stats-scene { justify-content: center; align-items: center; }
+  .stat-tooltip {
+    position: absolute;
+    background: var(--glass-bg); backdrop-filter: blur(10px); border: 1px solid var(--glass-border);
+    padding: 15px 25px; border-radius: 12px; font-weight: 500; font-size: 0.95rem;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    opacity: 0; /* Hidden initially, revealed by GSAP */
+  }
+  .stat-1 { top: 30%; left: 20%; }
+  .stat-2 { top: 25%; right: 25%; }
+  .stat-3 { bottom: 30%; left: 25%; }
+
+  /* --- SCENE 4: TEAM GRID --- */
+  .team-scene { flex-direction: column; align-items: flex-start; }
+  .team-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; width: 100%; max-width: 1200px;
+  }
+  .team-member {
+    height: 250px; border-radius: 12px; overflow: hidden; position: relative;
+    border: 1px solid var(--glass-border);
+  }
+  .team-member img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(20%); }
+
+  /* --- SCENE 5: METHODOLOGY --- */
+  .method-scene { flex-direction: column; align-items: flex-start; }
+  .method-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; width: 100%;
+  }
+  .method-card { height: 400px; }
+  .step-badge {
+    font-size: 0.75rem; color: var(--accent-red); text-transform: uppercase; letter-spacing: 1px;
+    font-weight: 600; margin-bottom: 20px; display: block;
+  }
+  .method-card h3 { font-size: 1.8rem; font-weight: 300; margin-bottom: 20px; }
+  .method-card ul { list-style: none; color: var(--text-muted); line-height: 1.8; font-size: 0.95rem; }
+  .method-card ul li::before { content: '• '; color: var(--text-main); }
 
 </style>
 </head>
 <body>
 
-<!-- Custom Cursor Elements -->
-<div class="cursor-dot" id="cursor-dot"></div>
-<div class="cursor-outline" id="cursor-outline"></div>
+<!-- THE 3D ENGINE CANVAS -->
+<canvas id="webgl-canvas"></canvas>
 
-<!-- 3D Background -->
-<div id="vanta-bg"></div>
+<!-- THE SCROLLABLE DOM CONTENT -->
+<div id="scroll-container">
 
-<header class="site-header" id="top">
-  <div class="wrap header-row">
-    <a class="brand" href="index.html" aria-label="ElectroFusion home">
-      <img src="image_de9c50.png" alt="ElectroFusion Logo" class="brand-logo">
-      <span class="brand-word">ElectroFusion</span>
-    </a>
-    <nav class="main-nav" id="main-nav">
-      <a href="index.html">Home</a>
-      <a href="about.html">About</a>
-      <a href="activities.html">Activities</a>
-      <a href="team.html">Team</a>
-    </nav>
-  </div>
-</header>
-
-<main id="main">
-  
-  <!-- HERO SECTION -->
-  <section class="about-section hero-3d">
-    <h1 class="hero-headline gsap-reveal">Redefining what<br>student engineers<br>can achieve.</h1>
-    <p class="hero-sub gsap-reveal">A Venture Builder ecosystem at TIET creating cutting-edge hardware, publishing global research, and forging the next generation of tech leaders.</p>
+  <!-- SCENE 1: HERO -->
+  <section class="scene hero-scene" id="scene-hero">
+    <div class="hero-content">
+      <h1 class="hero-title">ElectroFusion Builder</h1>
+      <p class="hero-desc">A Venture Builder that creates leading projects in electronics and technology to enhance the development of engineering students.</p>
+      <div class="glass-panel" style="display: inline-block; padding: 12px 25px; border-radius: 30px; font-weight: 500;">
+        <span style="color: var(--accent-red); margin-right: 10px;">→</span> CONTACT
+      </div>
+    </div>
+    <div class="hero-nav">
+      <a href="#scene-core">DOMAINS</a>
+      <a href="#scene-method">METHODOLOGY</a>
+      <a href="#scene-stats">US</a>
+      <a href="#scene-team">TEAM</a>
+    </div>
   </section>
 
-  <!-- WHAT RESEARCH MEANS -->
-  <section class="about-section">
-    <h2 class="section-title gsap-reveal">What Research Means to Us</h2>
-    <div class="card-grid">
-      <!-- data-tilt enables the 3D physics on hover -->
-      <div class="glass-card gsap-card" data-tilt data-tilt-max="10" data-tilt-speed="400" data-tilt-glare data-tilt-max-glare="0.2">
-        <div class="card-icon">🔬</div>
-        <h4>Applied Exploration</h4>
-        <p>We don't just read about concepts; we build them. If it exists in theory, we want it on a breadboard.</p>
+  <!-- SCENE 2: OUR CORE -->
+  <section class="scene core-scene" id="scene-core">
+    <h2 class="section-heading">Our Core</h2>
+    <div class="core-grid">
+      <div class="glass-panel core-card gsap-fade-up">
+        <h3>Embedded Systems</h3>
+        <p>We integrate hardware and software to transform processes and decisions in autonomous systems.</p>
       </div>
-      <div class="glass-card gsap-card" data-tilt data-tilt-max="10" data-tilt-speed="400" data-tilt-glare data-tilt-max-glare="0.2">
-        <div class="card-icon">📄</div>
-        <h4>Publishing Papers</h4>
-        <p>We mentor members on how to document their innovations and publish in global IEEE journals.</p>
+      <div class="glass-panel core-card gsap-fade-up">
+        <h3>IoT & Cyber</h3>
+        <p>We invest in advanced tech to protect data and maintain highest security in connected devices.</p>
       </div>
-      <div class="glass-card gsap-card" data-tilt data-tilt-max="10" data-tilt-speed="400" data-tilt-glare data-tilt-max-glare="0.2">
-        <div class="card-icon">🤝</div>
-        <h4>Interdisciplinary Fusion</h4>
-        <p>A single project here might require a C script, an ML model, and a custom-printed PCB.</p>
+      <div class="glass-panel core-card gsap-fade-up">
+        <h3>Power Systems</h3>
+        <p>We help harness the potential of efficient energy distribution to scale industrial capabilities.</p>
+      </div>
+      <div class="glass-panel core-card gsap-fade-up">
+        <h3>Modernization</h3>
+        <p>We empower students through cloud solutions and PCB design that scale with industry needs.</p>
       </div>
     </div>
   </section>
 
-  <!-- PROCESS TREE -->
-  <section class="about-section">
-    <h2 class="section-title gsap-reveal">How We Build</h2>
-    <div class="process-timeline">
-      <div class="process-step gsap-step"><span class="step-num">PHASE 01</span><h4>Ideate</h4><p>Spot a problem and sketch the architecture.</p></div>
-      <div class="process-step gsap-step"><span class="step-num">PHASE 02</span><h4>Design</h4><p>Draft schematics and select components.</p></div>
-      <div class="process-step gsap-step"><span class="step-num">PHASE 03</span><h4>Simulate</h4><p>Run rigorous virtual tests to verify logic.</p></div>
-      <div class="process-step gsap-step"><span class="step-num">PHASE 04</span><h4>Prototype</h4><p>Breadboard, order PCBs, and write firmware.</p></div>
-      <div class="process-step gsap-step"><span class="step-num">PHASE 05</span><h4>Iterate</h4><p>Stress-test the system until it is fundamentally solid.</p></div>
-      <div class="process-step gsap-step"><span class="step-num">PHASE 06</span><h4>Showcase</h4><p>Present tech at national expos and competitions.</p></div>
+  <!-- SCENE 3: STATS (ORB IN CENTER) -->
+  <section class="scene stats-scene" id="scene-stats">
+    <h2 class="section-heading" style="position: absolute; top: 15vh; left: 8vw;">Impact</h2>
+    <div class="stat-tooltip stat-1 gsap-pop">Present in 15+ Tech Events</div>
+    <div class="stat-tooltip stat-2 gsap-pop">Over 50+ Visionaries</div>
+    <div class="stat-tooltip stat-3 gsap-pop">20+ Hardware Projects Built</div>
+  </section>
+
+  <!-- SCENE 4: TEAM -->
+  <section class="scene team-scene" id="scene-team">
+    <h2 class="section-heading">Our team</h2>
+    <p style="color: var(--text-muted); margin-bottom: 40px; margin-top: -30px; margin-left: 25px;">A great team that makes each project grow</p>
+    <div class="team-grid">
+      <!-- Row 1 -->
+      <div class="glass-panel team-member gsap-fade-up" style="padding:0;"><img src="Devansh.jpeg" alt="Devansh"></div>
+      <div class="glass-panel team-member gsap-fade-up" style="padding:0;"><img src="Vimarsh.jpeg" alt="Vimarsh"></div>
+      <div class="glass-panel team-member gsap-fade-up" style="padding:0;"><img src="Aradhana.jpeg" alt="Aradhana"></div>
+      <div class="glass-panel team-member gsap-fade-up" style="padding:0;"><img src="Gurkeerat.jpeg" alt="Gurkeerat"></div>
     </div>
   </section>
 
-</main>
+  <!-- SCENE 5: METHODOLOGY -->
+  <section class="scene method-scene" id="scene-method">
+    <h2 class="section-heading">Our methodology</h2>
+    <div class="method-grid">
+      <div class="glass-panel method-card gsap-fade-up">
+        <span class="step-badge">Step 01</span>
+        <h3>Discovery and validation</h3>
+        <ul>
+          <li>We identify engineering opportunities</li>
+          <li>We carry out literature reviews</li>
+          <li>We validate our concepts</li>
+          <li>We seek early mentor feedback</li>
+        </ul>
+      </div>
+      <div class="glass-panel method-card gsap-fade-up">
+        <span class="step-badge">Step 02</span>
+        <h3>Creation and development</h3>
+        <ul>
+          <li>We form multidisciplinary teams</li>
+          <li>We foster a culture of leadership</li>
+          <li>We prototype hardware systems</li>
+          <li>We debug and iterate rigorously</li>
+        </ul>
+      </div>
+      <div class="glass-panel method-card gsap-fade-up">
+        <span class="step-badge">Step 03</span>
+        <h3>Launch and scaling</h3>
+        <ul>
+          <li>We finalize the technical architecture</li>
+          <li>We ensure systemic independence</li>
+          <li>We implement effective showcase strategies</li>
+          <li>We aim for top-tier academic publishing</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+</div>
 
 <script>
-  window.addEventListener('DOMContentLoaded', () => {
-    /* ----------------------------------------------------
-       1. Custom Interactive Cursor
-       ---------------------------------------------------- */
-    const dot = document.getElementById("cursor-dot");
-    const outline = document.getElementById("cursor-outline");
+  /* =====================================================
+     1. THREE.JS ENGINE SETUP
+     ===================================================== */
+  const canvas = document.querySelector('#webgl-canvas');
+  const scene = new THREE.Scene();
+  
+  // Camera
+  const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 100);
+  camera.position.z = 10;
+  
+  // Renderer
+  const renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true, antialias: true });
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
-    window.addEventListener("mousemove", (e) => {
-      const posX = e.clientX;
-      const posY = e.clientY;
+  // The Main Energy Orb (Using a high-poly Icosahedron for that tech feel)
+  const geometry = new THREE.IcosahedronGeometry(2.5, 64);
+  
+  // We use a custom shader-like material for the bright orange/pink look
+  const material = new THREE.MeshPhysicalMaterial({
+    color: 0xff6b6b,
+    emissive: 0xff4757,
+    emissiveIntensity: 0.4,
+    roughness: 0.2,
+    metalness: 0.1,
+    wireframe: false,
+    clearcoat: 1.0,
+    clearcoatRoughness: 0.1
+  });
+  
+  const mainOrb = new THREE.Mesh(geometry, material);
+  scene.add(mainOrb);
 
-      // Dot follows instantly
-      dot.style.left = `${posX}px`;
-      dot.style.top = `${posY}px`;
+  // Outer Atmosphere Ring (The glowing aura)
+  const ringGeo = new THREE.RingGeometry(3.5, 3.52, 64);
+  const ringMat = new THREE.MeshBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0.2, side: THREE.DoubleSide });
+  const ring = new THREE.Mesh(ringGeo, ringMat);
+  scene.add(ring);
 
-      // Outline follows with a slight smooth delay
-      outline.animate({ left: `${posX}px`, top: `${posY}px` }, { duration: 500, fill: "forwards" });
+  // Lighting
+  const ambientLight = new THREE.AmbientLight(0xffffff, 0.8);
+  scene.add(ambientLight);
+  
+  const pointLight1 = new THREE.PointLight(0xff9f43, 2);
+  pointLight1.position.set(5, 5, 5);
+  scene.add(pointLight1);
+  
+  const pointLight2 = new THREE.PointLight(0x0abde3, 1.5); // Slight blue tint on the edge
+  pointLight2.position.set(-5, -5, 5);
+  scene.add(pointLight2);
+
+  // Floating Background Bubbles
+  const bubbles = [];
+  const bubbleGeo = new THREE.SphereGeometry(0.3, 32, 32);
+  const bubbleMat = new THREE.MeshPhysicalMaterial({
+    color: 0xffffff, transmission: 0.9, opacity: 1, metalness: 0, roughness: 0, ior: 1.5,
+  });
+
+  for(let i=0; i<8; i++) {
+    const bubble = new THREE.Mesh(bubbleGeo, bubbleMat);
+    bubble.position.set((Math.random() - 0.5) * 15, (Math.random() - 0.5) * 10, (Math.random() - 0.5) * 5 - 2);
+    scene.add(bubble);
+    bubbles.push({ mesh: bubble, speed: Math.random() * 0.02 + 0.01 });
+  }
+
+  // Animation Loop
+  const clock = new THREE.Clock();
+  function animate() {
+    const elapsedTime = clock.getElapsedTime();
+    
+    // Gentle rotation of the main orb
+    mainOrb.rotation.y = elapsedTime * 0.1;
+    mainOrb.rotation.x = elapsedTime * 0.05;
+    
+    // Float the bubbles
+    bubbles.forEach((b, i) => {
+      b.mesh.position.y += Math.sin(elapsedTime * b.speed + i) * 0.01;
+      b.mesh.rotation.x += 0.01;
     });
 
-    // Cursor hover effects on links and cards
-    document.querySelectorAll('a, .glass-card').forEach(el => {
-      el.addEventListener('mouseenter', () => {
-        outline.style.width = '60px';
-        outline.style.height = '60px';
-        outline.style.backgroundColor = 'rgba(0, 240, 255, 0.1)';
-      });
-      el.addEventListener('mouseleave', () => {
-        outline.style.width = '40px';
-        outline.style.height = '40px';
-        outline.style.backgroundColor = 'transparent';
-      });
-    });
+    renderer.render(scene, camera);
+    requestAnimationFrame(animate);
+  }
+  animate();
 
-    /* ----------------------------------------------------
-       2. Vanta.js 3D Background (Globe)
-       ---------------------------------------------------- */
-    VANTA.GLOBE({
-      el: "#vanta-bg",
-      mouseControls: true,
-      touchControls: true,
-      gyroControls: false,
-      minHeight: 200.00,
-      minWidth: 200.00,
-      scale: 1.00,
-      scaleMobile: 1.00,
-      color: 0x00f0ff,
-      color2: 0xff3366,
-      size: 1.30,
-      backgroundColor: 0x020405
-    });
+  // Resize Handler
+  window.addEventListener('resize', () => {
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+  });
 
-    /* ----------------------------------------------------
-       3. GSAP Scroll Animations
-       ---------------------------------------------------- */
-    gsap.registerPlugin(ScrollTrigger);
+  /* =====================================================
+     2. GSAP SCROLL-JACKING CINEMATIC TIMELINE
+     ===================================================== */
+  gsap.registerPlugin(ScrollTrigger);
 
-    // Hero Section Reveal
-    gsap.fromTo(".hero-headline", 
-      { y: 50, autoAlpha: 0 }, 
-      { y: 0, autoAlpha: 1, duration: 1.2, ease: "power3.out", delay: 0.2 }
+  // Default Orb Position (Center Screen)
+  mainOrb.position.set(0, 0, 0);
+
+  // Scene 2: Core Domains (Orb shrinks and moves to background)
+  gsap.to(mainOrb.position, {
+    y: 1, z: -5,
+    ease: "none",
+    scrollTrigger: {
+      trigger: "#scene-core",
+      start: "top center",
+      end: "center center",
+      scrub: true
+    }
+  });
+
+  // Scene 3: Stats (Orb comes back to center, tooltips pop up)
+  gsap.to(mainOrb.position, {
+    y: 0, z: 2, // Moves forward
+    ease: "none",
+    scrollTrigger: {
+      trigger: "#scene-stats",
+      start: "top bottom",
+      end: "center center",
+      scrub: true
+    }
+  });
+  
+  // Pop in the stat tooltips
+  gsap.utils.toArray('.gsap-pop').forEach((tooltip, i) => {
+    gsap.fromTo(tooltip, 
+      { scale: 0, autoAlpha: 0 },
+      { scale: 1, autoAlpha: 1, duration: 0.6, delay: i * 0.2, ease: "back.out(1.5)",
+        scrollTrigger: { trigger: "#scene-stats", start: "top 40%" }
+      }
     );
-    gsap.fromTo(".hero-sub", 
-      { y: 30, autoAlpha: 0 }, 
-      { y: 0, autoAlpha: 1, duration: 1, ease: "power3.out", delay: 0.6 }
-    );
+  });
 
-    // Fade up section titles on scroll
-    gsap.utils.toArray('.section-title').forEach(title => {
-      gsap.fromTo(title,
-        { y: 40, autoAlpha: 0 },
-        { scrollTrigger: { trigger: title, start: "top 85%" }, y: 0, autoAlpha: 1, duration: 1, ease: "power3.out" }
-      );
-    });
+  // Scene 4: Team (Orb shifts far right)
+  gsap.to(mainOrb.position, {
+    x: 4, y: -1, z: -2,
+    ease: "none",
+    scrollTrigger: {
+      trigger: "#scene-team",
+      start: "top center",
+      end: "center center",
+      scrub: true
+    }
+  });
 
-    // Staggered reveal for 3D Cards
-    gsap.fromTo(".gsap-card",
-      { y: 60, autoAlpha: 0 },
-      { scrollTrigger: { trigger: ".card-grid", start: "top 80%" }, y: 0, autoAlpha: 1, duration: 0.8, stagger: 0.2, ease: "back.out(1.2)" }
-    );
+  // Scene 5: Methodology (Orb shifts far left)
+  gsap.to(mainOrb.position, {
+    x: -4, y: 1, z: -3,
+    ease: "none",
+    scrollTrigger: {
+      trigger: "#scene-method",
+      start: "top center",
+      end: "center center",
+      scrub: true
+    }
+  });
 
-    // Staggered reveal for Process Timeline
-    gsap.fromTo(".gsap-step",
-      { x: -30, autoAlpha: 0 },
-      { scrollTrigger: { trigger: ".process-timeline", start: "top 80%" }, x: 0, autoAlpha: 1, duration: 0.6, stagger: 0.15, ease: "power2.out" }
+  // Fade Up Animation for Glass Cards
+  gsap.utils.toArray('.gsap-fade-up').forEach(card => {
+    gsap.fromTo(card,
+      { y: 50, autoAlpha: 0 },
+      { y: 0, autoAlpha: 1, duration: 0.8, ease: "power2.out",
+        scrollTrigger: { trigger: card, start: "top 85%" }
+      }
     );
   });
 </script>
