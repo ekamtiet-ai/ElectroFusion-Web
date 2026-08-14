@@ -14,7 +14,11 @@
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-
+<!-- Avengers / Tech Boot Preloader -->
+  <div id="roster-preloader">
+    <div class="tech-scanner-ring"></div>
+    <div class="tech-text">ASSEMBLING ROSTER...</div>
+  </div>
 <div class="pcb-backdrop" aria-hidden="true"></div>
 
 <header class="site-header" id="top">
@@ -263,5 +267,17 @@
 </footer>
 
 <script src="script.js"></script>
+<script>
+    // Reveal the roster after 1.5 seconds
+    window.addEventListener('load', () => {
+      setTimeout(() => {
+        const preloader = document.getElementById('roster-preloader');
+        if(preloader) {
+          preloader.style.opacity = '0';
+          setTimeout(() => preloader.remove(), 500);
+        }
+      }, 1500); 
+    });
+  </script>
 </body>
 </html>
