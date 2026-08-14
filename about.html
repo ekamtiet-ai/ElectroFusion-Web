@@ -4,108 +4,177 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>ElectroFusion — About Us</title>
-<meta name="description" content="Learn about ElectroFusion's mission and how our student engineers build hardware projects.">
+<meta name="description" content="Learn about ElectroFusion's mission, our research methodology, and how our student engineers build hardware projects.">
 
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Cpolygon points='30,11 30,29 20,35 10,29 10,11 20,5' fill='%230d1f18' stroke='%23d68a3c' stroke-width='2'/%3E%3Ctext x='20' y='25' font-family='monospace' font-weight='bold' font-size='12' fill='%23d68a3c' text-anchor='middle'%3EEF%3C/text%3E%3C/svg%3E">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Cpolygon points='30,11 30,29 20,35 10,29 10,11 20,5' fill='%230d1f18' stroke='%2300f0ff' stroke-width='2'/%3E%3Ctext x='20' y='25' font-family='monospace' font-weight='bold' font-size='12' fill='%2300f0ff' text-anchor='middle'%3EEF%3C/text%3E%3C/svg%3E">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@300;700;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@300;400;600;700;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css">
 
-<!-- 3D Engine Scripts (Three.js & Vanta.js) -->
+<!-- 3D Engine Scripts (Three.js & Vanta Globe) -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.net.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.globe.min.js"></script>
 
 <style>
   /* ==========================================
-     BULLETPROOF 3D SECTION STYLES
+     ELITE ABOUT PAGE STYLES (LONG-SCROLL)
      ========================================== */
-  #about-3d {
-    position: relative;
-    width: 100%;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
-    padding: 120px 5%;
-    font-family: 'Inter', sans-serif;
+  :root {
+    --glass-bg: rgba(255, 255, 255, 0.03);
+    --glass-border: rgba(255, 255, 255, 0.08);
+    --neon-cyan: #00f0ff;
+    --text-muted: rgba(255, 255, 255, 0.6);
   }
 
-  /* The container for the 3D animation */
+  body {
+    background-color: #020405;
+    color: #ffffff;
+    font-family: 'Inter', sans-serif;
+    overflow-x: hidden;
+  }
+
+  /* Fixed 3D Background - Stays behind everything while scrolling */
   #vanta-bg {
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
-    height: 100%;
-    z-index: 0;
+    height: 100vh;
+    z-index: -1;
+    opacity: 0.8;
   }
 
-  /* Keeps the text above the 3D background */
-  .about-content-wrapper {
+  /* Section Containers */
+  .about-section {
     position: relative;
+    padding: 120px 5%;
+    max-width: 1300px;
+    margin: 0 auto;
     z-index: 2;
-    max-width: 1200px;
-    width: 100%;
-    text-align: left;
-    pointer-events: none; /* Lets mouse interact with 3D background behind text */
   }
 
-  .elite-headline {
-    font-size: clamp(3rem, 6vw, 5.5rem);
-    font-weight: 900;
-    line-height: 1.05;
-    letter-spacing: -2px;
-    color: #ffffff;
-    text-transform: uppercase;
-    margin-bottom: 30px;
-    text-shadow: 0 10px 30px rgba(0,0,0,0.8);
-  }
-
-  .elite-mission {
-    font-size: clamp(1.2rem, 2vw, 1.8rem);
-    line-height: 1.6;
-    color: rgba(255, 255, 255, 0.75);
-    max-width: 900px;
-    margin-bottom: 80px;
-    font-weight: 300;
-    text-shadow: 0 5px 15px rgba(0,0,0,0.8);
-  }
-
-  .elite-stats-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 40px;
-    border-top: 1px solid rgba(0, 240, 255, 0.2);
-    padding-top: 50px;
-  }
-
-  .elite-stat-item {
+  /* --- HERO SECTION --- */
+  .hero-3d {
+    min-height: 90vh;
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    padding-top: 150px;
   }
-
-  .elite-stat-value {
-    font-size: 3.5rem;
-    font-weight: 700;
-    color: #00f0ff; /* ElectroFusion Neon */
-    margin-bottom: 5px;
-    text-shadow: 0 0 20px rgba(0, 240, 255, 0.4);
-  }
-
-  .elite-stat-label {
-    font-size: 0.9rem;
+  .hero-headline {
+    font-size: clamp(3rem, 6vw, 5rem);
+    font-weight: 900;
+    line-height: 1.1;
+    letter-spacing: -2px;
+    margin-bottom: 25px;
     text-transform: uppercase;
-    letter-spacing: 3px;
-    color: rgba(255, 255, 255, 0.5);
+    max-width: 800px;
+  }
+  .hero-sub {
+    font-size: clamp(1.2rem, 2vw, 1.5rem);
+    color: var(--text-muted);
+    max-width: 600px;
+    font-weight: 300;
+    line-height: 1.6;
+  }
+
+  /* --- MISSION & VISION --- */
+  .mission-vision-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 60px;
+    border-top: 1px solid var(--glass-border);
+    padding-top: 80px;
+  }
+  .mv-block h3 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+    color: var(--neon-cyan);
+  }
+  .mv-block p {
+    font-size: 1.1rem;
+    line-height: 1.7;
+    color: var(--text-muted);
+  }
+
+  /* --- GLASS CARDS (For Research & Structure) --- */
+  .section-title {
+    font-size: 3rem;
+    font-weight: 700;
+    margin-bottom: 50px;
+    text-align: center;
+  }
+  .card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 30px;
+  }
+  .glass-card {
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: 16px;
+    padding: 40px 30px;
+    transition: transform 0.3s ease, border-color 0.3s ease;
+    backdrop-filter: blur(10px);
+  }
+  .glass-card:hover {
+    transform: translateY(-5px);
+    border-color: rgba(0, 240, 255, 0.4);
+  }
+  .card-icon {
+    font-size: 2rem;
+    margin-bottom: 20px;
+    color: var(--neon-cyan);
+  }
+  .glass-card h4 {
+    font-size: 1.4rem;
+    margin-bottom: 15px;
     font-weight: 600;
+  }
+  .glass-card p {
+    color: var(--text-muted);
+    line-height: 1.6;
+    font-size: 0.95rem;
+  }
+
+  /* --- PROCESS TREE --- */
+  .process-timeline {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 40px;
+    margin-top: 40px;
+  }
+  .process-step {
+    border-left: 2px solid var(--glass-border);
+    padding-left: 20px;
+    position: relative;
+  }
+  .process-step::before {
+    content: '';
+    position: absolute;
+    left: -6px;
+    top: 0;
+    width: 10px;
+    height: 10px;
+    background: var(--neon-cyan);
+    border-radius: 50%;
+    box-shadow: 0 0 10px var(--neon-cyan);
+  }
+  .step-num {
+    font-family: monospace;
+    color: var(--neon-cyan);
+    letter-spacing: 2px;
+    margin-bottom: 10px;
+    display: block;
   }
 </style>
 </head>
 <body>
+
+<!-- The Interactive 3D Sphere Background -->
+<div id="vanta-bg"></div>
 
 <header class="site-header" id="top">
   <div class="wrap header-row">
@@ -120,50 +189,129 @@
       <a href="team.html">Team</a>
       <a href="index.html#join" class="nav-cta">Join Us</a>
     </nav>
-    <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="main-nav" aria-label="Toggle menu">
-      <span></span><span></span><span></span>
-    </button>
   </div>
 </header>
 
 <main id="main">
-  <!-- ==========================================
-       3D INTERACTIVE ABOUT SECTION
-       ========================================== -->
-  <section id="about-3d">
-    <!-- This div holds the live 3D render -->
-    <div id="vanta-bg"></div>
-    
-    <div class="about-content-wrapper">
-      <h2 class="elite-headline">Empowering a New<br>Generation of Innovators.</h2>
-      
-      <p class="elite-mission">
-        We are a premier engineering society accelerating the future of technology at the Thapar Institute of Engineering and Technology. By bolstering hardware and software solutions, we build systems that make our world more connected, efficient, and advanced.
-      </p>
-      
-      <div class="elite-stats-grid">
-        <div class="elite-stat-item">
-          <span class="elite-stat-value">06</span>
-          <span class="elite-stat-label">Core Domains</span>
-        </div>
-        <div class="elite-stat-item">
-          <span class="elite-stat-value">50+</span>
-          <span class="elite-stat-label">Visionaries</span>
-        </div>
-        <div class="elite-stat-item">
-          <span class="elite-stat-value">20+</span>
-          <span class="elite-stat-label">Projects Built</span>
-        </div>
-        <div class="elite-stat-item">
-          <span class="elite-stat-value">100%</span>
-          <span class="elite-stat-label">Commitment</span>
-        </div>
+  
+  <!-- HERO SECTION -->
+  <section class="about-section hero-3d">
+    <h1 class="hero-headline">Redefining what<br>student engineers<br>can achieve.</h1>
+    <p class="hero-sub">A Venture Builder ecosystem at TIET creating cutting-edge hardware, publishing global research, and forging the next generation of tech leaders.</p>
+  </section>
+
+  <!-- MISSION & VISION -->
+  <section class="about-section">
+    <div class="mission-vision-grid">
+      <div class="mv-block">
+        <h3>🎯 Our Mission</h3>
+        <p>To make advanced hardware research accessible and highly impactful. We bridge the gap between theoretical coursework and industry-grade physical systems, ensuring every member develops the hardcore technical skills demanded by top tech firms.</p>
+      </div>
+      <div class="mv-block">
+        <h3>🔭 Our Vision</h3>
+        <p>To establish TIET as a powerhouse of student-led electronics innovation. We are building a thriving community where curiosity becomes patents, ideas become fully integrated systems, and students graduate as elite engineers.</p>
       </div>
     </div>
   </section>
+
+  <!-- WHAT RESEARCH MEANS & BENEFITS -->
+  <section class="about-section">
+    <h2 class="section-title">What Research Means to Us</h2>
+    <div class="card-grid">
+      <div class="glass-card">
+        <div class="card-icon">🔬</div>
+        <h4>Applied Exploration</h4>
+        <p>We don't just read about concepts; we build them. We approach every problem—from power systems to IoT—with critical thinking and evidence-based prototyping. If it exists in theory, we want it on a breadboard.</p>
+      </div>
+      <div class="glass-card">
+        <div class="card-icon">📄</div>
+        <h4>Publishing Papers</h4>
+        <p>Your work shouldn't be locked in a drawer. We mentor members on how to document their innovations, write academic papers, and publish in global IEEE journals, drastically boosting your professional portfolio.</p>
+      </div>
+      <div class="glass-card">
+        <div class="card-icon">🤝</div>
+        <h4>Interdisciplinary Fusion</h4>
+        <p>Complex challenges require multiple perspectives. A single project here might require a C++ script, a Python machine-learning model, and a custom-printed PCB. We break down the silos between departments.</p>
+      </div>
+      <div class="glass-card">
+        <div class="card-icon">🚀</div>
+        <h4>Career Acceleration</h4>
+        <p>Members gain hands-on experience through brutal troubleshooting and real-world system architecture. This is the exact kind of high-level problem-solving that sets you apart in elite internship and job interviews.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROCESS TREE -->
+  <section class="about-section">
+    <h2 class="section-title">How We Build</h2>
+    <div class="process-timeline">
+      <div class="process-step">
+        <span class="step-num">PHASE 01</span>
+        <h4>Ideate</h4>
+        <p>Spot a problem worth solving and sketch the initial conceptual architecture.</p>
+      </div>
+      <div class="process-step">
+        <span class="step-num">PHASE 02</span>
+        <h4>Design</h4>
+        <p>Draft detailed schematics, map the logic, and select the exact components required.</p>
+      </div>
+      <div class="process-step">
+        <span class="step-num">PHASE 03</span>
+        <h4>Simulate</h4>
+        <p>Run rigorous virtual tests to verify logic and catch catastrophic errors before physical assembly.</p>
+      </div>
+      <div class="process-step">
+        <span class="step-num">PHASE 04</span>
+        <h4>Prototype</h4>
+        <p>Breadboard the circuit, order custom PCBs, and write the core firmware.</p>
+      </div>
+      <div class="process-step">
+        <span class="step-num">PHASE 05</span>
+        <h4>Iterate</h4>
+        <p>Measure, debug, and refine. We stress-test the system until it is fundamentally solid.</p>
+      </div>
+      <div class="process-step">
+        <span class="step-num">PHASE 06</span>
+        <h4>Showcase</h4>
+        <p>Present the finalized tech at national expos, university workshops, and innovation competitions.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SOCIETY STRUCTURE -->
+  <section class="about-section">
+    <h2 class="section-title">Society Structure</h2>
+    <div class="card-grid">
+      <div class="glass-card" style="border-top: 3px solid #ff3366;">
+        <h4>Executive Board</h4>
+        <p>Provides strategic direction, manages society funding, maintains university relations, and oversees resource allocation for all active projects.</p>
+      </div>
+      <div class="glass-card" style="border-top: 3px solid #00f0ff;">
+        <h4>Research & Development</h4>
+        <p>The core engine. Drives scientific exploration through literature reviews, hardware investigations, and leading interdisciplinary builds.</p>
+      </div>
+      <div class="glass-card" style="border-top: 3px solid #00ffcc;">
+        <h4>Technical Division</h4>
+        <p>Designs, develops, and maintains ElectroFusion's digital footprint, website architecture, and internal software tools.</p>
+      </div>
+      <div class="glass-card" style="border-top: 3px solid #ff9900;">
+        <h4>Outreach & PR</h4>
+        <p>Builds strategic connections with students, external researchers, and corporate organizations, expanding the society's network and influence.</p>
+      </div>
+      <div class="glass-card" style="border-top: 3px solid #b700ff;">
+        <h4>Creativity & Media</h4>
+        <p>Documents activities through high-end photography, manages social media channels, and transforms complex scientific concepts into engaging digital content.</p>
+      </div>
+      <div class="glass-card" style="border-top: 3px solid #aadd00;">
+        <h4>Documentation</h4>
+        <p>Maintains rigorous records of projects and meetings, creating an educational archive so future members can learn from past builds.</p>
+      </div>
+    </div>
+  </section>
+
 </main>
 
-<footer class="site-footer">
+<footer class="site-footer" style="position: relative; z-index: 2; background: #010203; border-top: 1px solid rgba(255,255,255,0.05); margin-top: 100px;">
   <div class="wrap footer-grid">
     <div>
       <a class="brand" href="index.html" aria-label="ElectroFusion home">
@@ -178,11 +326,6 @@
       <a href="activities.html">Activities</a>
       <a href="team.html">Team</a>
     </nav>
-    <div class="footer-social">
-      <a href="https://www.instagram.com/electrofusion_tiet?igsh=MWVwZHQyYTg2dXpzNw==" target="_blank" rel="noopener noreferrer">Instagram</a>
-      <a href="https://www.linkedin.com/company/electrofusion-research/posts/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-      <a href="mailto:electrofusion.research@thapar.edu">Email</a>
-    </div>
   </div>
   <div class="wrap footer-bottom">
     <p>&copy; <span id="year">2026</span> ElectroFusion, TIET. All rights reserved.</p>
@@ -191,10 +334,10 @@
 
 <script src="script.js"></script>
 
-<!-- Initialize the 3D Engine -->
+<!-- Initialize the 3D Globe -->
 <script>
   window.addEventListener('DOMContentLoaded', () => {
-    VANTA.NET({
+    VANTA.GLOBE({
       el: "#vanta-bg",
       mouseControls: true,
       touchControls: true,
@@ -203,12 +346,10 @@
       minWidth: 200.00,
       scale: 1.00,
       scaleMobile: 1.00,
-      color: 0x00f0ff, /* ElectroFusion Cyan */
-      backgroundColor: 0x020405, /* Pitch Black */
-      points: 12.00,
-      maxDistance: 22.00,
-      spacing: 18.00,
-      showDots: true
+      color: 0x00f0ff,
+      color2: 0x0088ff,
+      size: 1.20,
+      backgroundColor: 0x020405
     });
   });
 </script>
