@@ -10,12 +10,102 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@300;700;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css">
+
+<!-- 3D Engine Scripts (Three.js & Vanta.js) -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.net.min.js"></script>
+
+<style>
+  /* ==========================================
+     BULLETPROOF 3D SECTION STYLES
+     ========================================== */
+  #about-3d {
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    padding: 120px 5%;
+    font-family: 'Inter', sans-serif;
+  }
+
+  /* The container for the 3D animation */
+  #vanta-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+  }
+
+  /* Keeps the text above the 3D background */
+  .about-content-wrapper {
+    position: relative;
+    z-index: 2;
+    max-width: 1200px;
+    width: 100%;
+    text-align: left;
+    pointer-events: none; /* Lets mouse interact with 3D background behind text */
+  }
+
+  .elite-headline {
+    font-size: clamp(3rem, 6vw, 5.5rem);
+    font-weight: 900;
+    line-height: 1.05;
+    letter-spacing: -2px;
+    color: #ffffff;
+    text-transform: uppercase;
+    margin-bottom: 30px;
+    text-shadow: 0 10px 30px rgba(0,0,0,0.8);
+  }
+
+  .elite-mission {
+    font-size: clamp(1.2rem, 2vw, 1.8rem);
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.75);
+    max-width: 900px;
+    margin-bottom: 80px;
+    font-weight: 300;
+    text-shadow: 0 5px 15px rgba(0,0,0,0.8);
+  }
+
+  .elite-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 40px;
+    border-top: 1px solid rgba(0, 240, 255, 0.2);
+    padding-top: 50px;
+  }
+
+  .elite-stat-item {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .elite-stat-value {
+    font-size: 3.5rem;
+    font-weight: 700;
+    color: #00f0ff; /* ElectroFusion Neon */
+    margin-bottom: 5px;
+    text-shadow: 0 0 20px rgba(0, 240, 255, 0.4);
+  }
+
+  .elite-stat-label {
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    color: rgba(255, 255, 255, 0.5);
+    font-weight: 600;
+  }
+</style>
 </head>
 <body>
-
-<div class="pcb-backdrop" aria-hidden="true"></div>
 
 <header class="site-header" id="top">
   <div class="wrap header-row">
@@ -38,82 +128,37 @@
 
 <main id="main">
   <!-- ==========================================
-       ELITE ABOUT SECTION (Iris Ventures Style)
+       3D INTERACTIVE ABOUT SECTION
        ========================================== -->
-  <section id="about-elite" class="about-section">
-    <div class="about-container">
-      <!-- Massive Awwwards-Style Headline -->
-      <h2 class="about-headline">EMPOWERING A NEW GENERATION OF INNOVATORS.</h2>
+  <section id="about-3d">
+    <!-- This div holds the live 3D render -->
+    <div id="vanta-bg"></div>
+    
+    <div class="about-content-wrapper">
+      <h2 class="elite-headline">Empowering a New<br>Generation of Innovators.</h2>
       
-      <!-- Minimalist Mission Statement -->
-      <p class="about-mission">
-        We are a premier engineering society accelerating the future of technology at the Thapar Institute of Engineering and Technology. By bolstering hardware and software solutions, we build systems that make our world more connected, efficient, and advanced—where no domain is left behind.
+      <p class="elite-mission">
+        We are a premier engineering society accelerating the future of technology at the Thapar Institute of Engineering and Technology. By bolstering hardware and software solutions, we build systems that make our world more connected, efficient, and advanced.
       </p>
       
-      <!-- Clean, High-Contrast Statistics Grid -->
-      <div class="about-stats">
-        <div class="stat-item">
-          <span class="stat-value">06</span>
-          <span class="stat-label">Core Domains</span>
+      <div class="elite-stats-grid">
+        <div class="elite-stat-item">
+          <span class="elite-stat-value">06</span>
+          <span class="elite-stat-label">Core Domains</span>
         </div>
-        <div class="stat-item">
-          <span class="stat-value">50+</span>
-          <span class="stat-label">Visionaries</span>
+        <div class="elite-stat-item">
+          <span class="elite-stat-value">50+</span>
+          <span class="elite-stat-label">Visionaries</span>
         </div>
-        <div class="stat-item">
-          <span class="stat-value">20+</span>
-          <span class="stat-label">Projects Built</span>
+        <div class="elite-stat-item">
+          <span class="elite-stat-value">20+</span>
+          <span class="elite-stat-label">Projects Built</span>
         </div>
-        <div class="stat-item">
-          <span class="stat-value">100%</span>
-          <span class="stat-label">Commitment</span>
+        <div class="elite-stat-item">
+          <span class="elite-stat-value">100%</span>
+          <span class="elite-stat-label">Commitment</span>
         </div>
       </div>
-    </div>
-  </section>
-
-  <!-- ============ PROCESS ============ -->
-  <section class="section section-alt" id="process">
-    <div class="wrap">
-      <div class="section-head" data-reveal>
-        <p class="eyebrow">Workflow</p>
-        <h2 class="section-title">How we build</h2>
-        <p class="body-lg section-intro">
-          Every project — from a weekend build to a semester-long one — moves through the same six stages.
-        </p>
-      </div>
-      <ol class="process-rail">
-        <li data-reveal>
-          <span class="step-no">01</span>
-          <h3>Ideate</h3>
-          <p>Spot a problem worth solving and sketch the concept.</p>
-        </li>
-        <li data-reveal>
-          <span class="step-no">02</span>
-          <h3>Design</h3>
-          <p>Plan the architecture, draft schematics, and choose components.</p>
-        </li>
-        <li data-reveal>
-          <span class="step-no">03</span>
-          <h3>Simulate</h3>
-          <p>Run virtual tests, verify logic, and catch errors before building.</p>
-        </li>
-        <li data-reveal>
-          <span class="step-no">04</span>
-          <h3>Prototype</h3>
-          <p>Breadboard it, order the PCB, write the firmware.</p>
-        </li>
-        <li data-reveal>
-          <span class="step-no">05</span>
-          <h3>Test &amp; Iterate</h3>
-          <p>Debug, measure, refine — repeat until it's solid.</p>
-        </li>
-        <li data-reveal>
-          <span class="step-no">06</span>
-          <h3>Showcase</h3>
-          <p>Present at expos, workshops, and competitions.</p>
-        </li>
-      </ol>
     </div>
   </section>
 </main>
@@ -140,10 +185,33 @@
     </div>
   </div>
   <div class="wrap footer-bottom">
-    <p>&copy; <span id="year"></span> ElectroFusion, TIET. All rights reserved.</p>
+    <p>&copy; <span id="year">2026</span> ElectroFusion, TIET. All rights reserved.</p>
   </div>
 </footer>
 
 <script src="script.js"></script>
+
+<!-- Initialize the 3D Engine -->
+<script>
+  window.addEventListener('DOMContentLoaded', () => {
+    VANTA.NET({
+      el: "#vanta-bg",
+      mouseControls: true,
+      touchControls: true,
+      gyroControls: false,
+      minHeight: 200.00,
+      minWidth: 200.00,
+      scale: 1.00,
+      scaleMobile: 1.00,
+      color: 0x00f0ff, /* ElectroFusion Cyan */
+      backgroundColor: 0x020405, /* Pitch Black */
+      points: 12.00,
+      maxDistance: 22.00,
+      spacing: 18.00,
+      showDots: true
+    });
+  });
+</script>
+
 </body>
 </html>
