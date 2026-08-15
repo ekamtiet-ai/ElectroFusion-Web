@@ -1337,6 +1337,7 @@ div:has(> .hero-logo),
   margin-top: 18px;
   display: flex;
   justify-content: center;
+  gap: 16px; /* <--- This creates the space between the buttons */
 }
 
 .team-social-icon {
