@@ -1227,11 +1227,26 @@ div:has(> .hero-logo),
     transform: scale(1.05);
   }
 }
+/* --- 3. Mobile Responsiveness --- */
+@media (max-width: 900px) {
+  .executive-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Tablets and large phones */
 @media (max-width: 768px) {
-  .leadership-grid,
+  .leadership-grid {
+    grid-template-columns: 1fr !important;
+    padding: 0 20px;
+  }
+}
+
+/* Phones */
+@media (max-width: 600px) {
   .executive-grid,
   .executive-grid.two-cards {
     grid-template-columns: 1fr !important;
-    padding: 0 20px !important;
+    padding: 0 20px;
   }
 }
