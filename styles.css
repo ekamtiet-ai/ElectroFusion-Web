@@ -1287,3 +1287,46 @@ div:has(> .hero-logo),
   0%, 100% { opacity: 0.4; }
   50% { opacity: 0.9; text-shadow: 0 0 8px rgba(95, 214, 196, 0.4); }
 }
+/* =========================================================
+   Circuit Tree - End Social Node
+   ========================================================= */
+.tree-continuation {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 2;
+}
+
+/* Extends the central spine directly into the logo */
+.spine-extension {
+  width: 2px;
+  height: 50px;
+  background: var(--panel-border);
+}
+
+/* The Clickable Instagram Node */
+.timeline-insta-node {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  background: rgba(16, 37, 30, 0.6);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 2px solid var(--copper);
+  border-radius: 50%;
+  color: var(--copper-bright);
+  transition: all 0.3s ease;
+  box-shadow: 0 0 15px rgba(214, 138, 60, 0.2);
+}
+
+/* Hover Physics - Lights up the circuit */
+.timeline-insta-node:hover {
+  background: var(--copper);
+  color: #020405; /* Switches icon color to dark for contrast */
+  box-shadow: 0 0 25px var(--copper-bright);
+  transform: translateY(-4px) scale(1.05);
+  border-color: var(--copper-bright);
+}
