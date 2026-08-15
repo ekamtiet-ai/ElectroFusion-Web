@@ -373,13 +373,6 @@ a{ color: inherit; text-decoration: none; }
   max-width: 900px;
   margin: 0 auto 60px auto;
 }
-/* Force 1 card per row on mobile screens */
-@media (max-width: 768px) {
-  .leadership-grid {
-    grid-template-columns: 1fr; /* Stacks them one below another */
-    padding: 0 20px;          /* Prevents cards from touching screen edges */
-  }
-}
 
 .leader-card {
   background: rgba(16, 37, 30, 0.4);
@@ -548,19 +541,14 @@ a{ color: inherit; text-decoration: none; }
 /* --- 3. Mobile Responsiveness --- */
 @media (max-width: 900px) {
   .executive-grid {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: 1fr; /* Stacks executive board on tablets/large phones */
   }
 }
-
 @media (max-width: 768px) {
-  .leadership-grid {
-    grid-template-columns: 1fr;
-  }
-}
-
-@media (max-width: 600px) {
+  .leadership-grid,
   .executive-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr; /* Forces both leadership and executive cards strictly 1-column */
+    padding: 0 20px;          /* Prevents cards from touching screen edges */
   }
 }
 
