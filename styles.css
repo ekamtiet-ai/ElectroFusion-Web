@@ -1227,3 +1227,11 @@ div:has(> .hero-logo),
     transform: scale(1.05);
   }
 }
+@media (max-width: 768px) {
+  .leadership-grid,
+  .executive-grid,
+  .executive-grid.two-cards {
+    grid-template-columns: 1fr !important;
+    padding: 0 20px !important;
+  }
+}
