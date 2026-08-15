@@ -40,6 +40,37 @@
       margin: 0 auto;
       z-index: 2;
     }
+
+    /* --- ADDED: Glass Card & Centering CSS --- */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 30px;
+      justify-content: center;
+    }
+
+    .glass-card {
+      background: rgba(16, 37, 30, 0.55); /* Translucent dark green/black base */
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid rgba(95, 214, 196, 0.15);
+      border-radius: 16px;
+      padding: 40px 30px;
+      text-align: center; /* <--- Forces all text and icons to the center */
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    }
+
+    .glass-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 40px rgba(95, 214, 196, 0.15);
+    }
+    
+    /* Ensures the SVG icons sit perfectly in the center */
+    .card-icon {
+      margin-bottom: 20px;
+      color: var(--teal);
+    }
   </style>
 </head>
 <body>
