@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ElectroFusion — Recruitment</title>
+<meta name="description" content="Recruitments start soon. Follow our socials for more updates from ElectroFusion.">
+
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Cpolygon points='30,11 30,29 20,35 10,29 10,11 20,5' fill='%230d1f18' stroke='%23d68a3c' stroke-width='2'/%3E%3Ctext x='20' y='25' font-family='monospace' font-weight='bold' font-size='12' fill='%23d68a3c' text-anchor='middle'%3EEF%3C/text%3E%3C/svg%3E">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+
+<style>
+  body {
+    background:
+      radial-gradient(circle at top left, rgba(7, 80, 70, 0.38), transparent 30%),
+      radial-gradient(circle at bottom right, rgba(18, 120, 105, 0.18), transparent 28%),
+      #020b09;
+    color: #edf5f3;
+  }
+
+  .recruitment-shell {
+    min-height: calc(100vh - 120px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 120px 20px 80px;
+  }
+
+  .recruitment-card {
+    width: min(900px, 100%);
+    background: rgba(3, 19, 18, 0.7);
+    border: 1px solid rgba(127, 230, 215, 0.15);
+    border-radius: 28px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    padding: 64px 36px;
+    text-align: center;
+  }
+
+  .recruitment-kicker {
+    display: inline-block;
+    margin-bottom: 18px;
+    font-size: 0.8rem;
+    letter-spacing: 0.18rem;
+    text-transform: uppercase;
+    color: var(--copper-bright, #d68a3c);
+    font-weight: 600;
+  }
+
+  .recruitment-title {
+    font-size: clamp(2.5rem, 5vw, 5rem);
+    line-height: 1.02;
+    letter-spacing: -0.06em;
+    margin: 0;
+    color: #f4f5f5;
+  }
+
+  .recruitment-title .accent-copper {
+    color: var(--copper-bright, #d68a3c);
+  }
+
+  .recruitment-subtitle {
+    margin-top: 22px;
+    font-size: clamp(1.15rem, 2vw, 1.6rem);
+    color: rgba(237, 245, 243, 0.9);
+    line-height: 1.5;
+  }
+
+  .recruitment-links {
+    margin-top: 32px;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+
+  .social-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 14px 22px;
+    min-width: 180px;
+    border: 1px solid rgba(127, 230, 215, 0.2);
+    border-radius: 14px;
+    background: rgba(9, 31, 30, 0.6);
+    color: #f2f8f7;
+    text-decoration: none;
+    transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.18);
+  }
+
+  .social-link:hover {
+    transform: translateY(-2px);
+    border-color: rgba(127, 230, 215, 0.45);
+    box-shadow: 0 12px 30px rgba(127, 230, 215, 0.12);
+  }
+
+  .social-link svg {
+    width: 22px;
+    height: 22px;
+    flex-shrink: 0;
+  }
+
+  @media (max-width: 640px) {
+    .recruitment-card {
+      padding: 44px 22px;
+    }
+
+    .recruitment-links {
+      flex-direction: column;
+    }
+
+    .social-link {
+      width: 100%;
+    }
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header" id="top">
+  <div class="wrap header-row">
+    <a class="brand" href="index.html" aria-label="ElectroFusion home">
+      <img src="image_de9c50.png" alt="ElectroFusion Logo" class="brand-logo">
+      <span class="brand-word">ElectroFusion</span>
+    </a>
+
+    <nav class="main-nav" id="main-nav" aria-label="Primary">
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="activities.html">Activities</a>
+      <a href="team.html">Team</a>
+      <a href="contact.html">Contact Us</a>
+      <a href="recruits.html" class="nav-cta">Join Us</a>
+    </nav>
+
+    <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="main-nav" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<main id="main">
+  <div class="recruitment-shell">
+    <div class="recruitment-card" data-reveal>
+      <div class="recruitment-kicker">ElectroFusion</div>
+      <h1 class="recruitment-title">Recruitments <span class="accent-copper">start soon</span></h1>
+      <p class="recruitment-subtitle">Follow our Socials for more updates.</p>
+
+      <div class="recruitment-links">
+        <a href="https://www.instagram.com/electrofusion_tiet?igsh=MWVwZHQyYTg2dXpzNw==" target="_blank" rel="noopener noreferrer" class="social-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+          </svg>
+          <span>Instagram</span>
+        </a>
+
+        <a href="https://www.linkedin.com/company/electrofusion-research/posts/" target="_blank" rel="noopener noreferrer" class="social-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+            <rect x="2" y="9" width="4" height="12"></rect>
+            <circle cx="4" cy="4" r="2"></circle>
+          </svg>
+          <span>LinkedIn</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer class="site-footer" style="background: #000000; opacity: 1;">
+  <div class="wrap footer-grid">
+    <div>
+      <a class="brand" href="index.html" aria-label="ElectroFusion home">
+        <img src="image_de9c50.png" alt="ElectroFusion Logo" class="brand-logo">
+        <span class="brand-word">ElectroFusion</span>
+      </a>
+      <p class="footer-tagline">Student Led Research Society for Physics, Electrical &amp; Electronics Engineering<br>Thapar Institute of Engineering &amp; Technology, Patiala</p>
+    </div>
+    <nav class="footer-nav" aria-label="Footer">
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="activities.html">Activities</a>
+      <a href="team.html">Team</a>
+      <a href="contact.html">Contact Us</a>
+    </nav>
+    <div class="footer-social">
+      <a href="https://www.instagram.com/electrofusion_tiet?igsh=MWVwZHQyYTg2dXpzNw==" target="_blank" rel="noopener noreferrer">Instagram</a>
+      <a href="https://www.linkedin.com/company/electrofusion-research/posts/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+      <a href="mailto:electrofusion.research@thapar.edu">Email</a>
+    </div>
+  </div>
+  <div class="wrap footer-bottom">
+    <p>&copy; <span id="year"></span> ElectroFusion, TIET. All rights reserved.</p>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
